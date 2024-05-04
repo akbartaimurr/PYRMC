@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How to Build</a> •
+  <a href="#how-to-build">How to Build</a> •
   <a href="#credits">Youtube Demo</a> •
   <a href="#license">License</a>
 </p>
@@ -34,9 +34,10 @@
 * List files in directories
 > [!TIP]
 > BONUS: PYRMC does not get marked by Windows Defender!
+> [!NOTE]  
+> You can see how these commands work and how to use them in the  <a href="#documentation">Documentation</a>
 
-
-## How To Use
+## How To Build
 
 To clone and run this script you'll need <a href="https://python.org">Python</a>. You can use any version after python3, You will also need PIP, which can be downloaded with python.
 After downloading python and pip, clone this repository or download this repo, then follow the following steps:
