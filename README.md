@@ -15,6 +15,8 @@
 </p>
 
 ![Recording 2024-05-04 154039](https://github.com/akbartaimurr/PYRMC/assets/134905706/2b818bf5-9840-418f-9013-f19e894cd31c)
+> [!WARNING]  
+> As the owner of PYRMC, I am not responsible of what you use the script or app for. Please use this for educational purposes only!
 
 ## Key Features
 
