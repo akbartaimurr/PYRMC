@@ -32,8 +32,9 @@
 * Display image on targets computer
 * Export files from targets computer to your computer
 * List files in directories
-> [!TIP]
-> BONUS: PYRMC does not get marked by Windows Defender!
+* Not detected by windows defender
+
+
 > [!NOTE]  
 > You can see how these commands work and how to use them in the  <a href="#documentation">Documentation</a>
 
