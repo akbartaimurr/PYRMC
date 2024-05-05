@@ -1,7 +1,6 @@
-https://github.com/akbartaimurr/PYRMC/assets/134905706/959efbe9-d0fc-4747-b51f-66f70d658e43
 <h1 align="center">
   <br>
-<img src="https://github.com/akbartaimurr/PYRMC/assets/134905706/8ec8d584-8e30-4ae4-be35-4bfe248ab266" alt="Markdownify" width="400"></a>
+<img src="https://github.com/akbartaimurr/PYRMC/assets/134905706/8ec8d584-8e30-4ae4-be35-4bfe248ab266" alt="Markdownify" width="250"></a>
 </h1>
 
 <h4 align="center">A simple but effective remote controlling app made using <a href="http://python.org" target="_blank">Python</a> and <a href="http://firebase.google.com" target="_blank">Firebase</a></h4>
