@@ -195,7 +195,7 @@ This software uses the following open source repos
 
 ## License
 
-MIT
+GNU GENERAL PUBLIC LICENSE 3.0
 
 ---
 
