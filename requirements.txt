@@ -9,3 +9,5 @@ pygame==2.5.2
 python_twitch_client==0.7.1
 pywin32==306
 Requests==2.31.0
+webbrowser
+tkinter
