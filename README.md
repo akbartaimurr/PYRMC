@@ -14,7 +14,7 @@
   <a href="#license">License</a>
 </p>
 
-![Recording 2024-05-04 154039](https://github.com/akbartaimurr/PYRMC/assets/134905706/2b818bf5-9840-418f-9013-f19e894cd31c)
+![Recording 2024-05-09 133009](https://github.com/akbartaimurr/PYRMC/assets/134905706/ebc209d5-c8f4-4f3b-8fbb-7db8f969a5f0)
 > [!WARNING]  
 > As the owner of PYRMC, I am not responsible of what you use the script or app for. Please use this tool for educational purposes only!
 
@@ -122,22 +122,22 @@ Assuming that you have used `--noconsole` when building reciever.py, there will 
 Below you can find the list of commands:
 ```python
 GET:
-get.pcinfo
-get.chromepaswords
-get.processes
+!pcinfo
+!chromepasswords
+!processes
 
 OS:
-os.import
-os.playsound
-os.sharescreen
-os.runtask
-os.displayvideo
-os.displayimage
-os.export
+!import
+!playsound
+!viewscreen
+!run
+!displayvideo
+!displayimage
+!download
 
 LS:
-ls[directory]
-ls.storage 
+!ls
+!ls.storage
 ```
 ### get.pcinfo ------------------------------------------------------
 ```get.pcinfo``` is a command that is pretty much self-explanitory, it allows you to gather pc information about the targets computer. This command has no other attributes and registering this command just gives you back the pc information of the targets computer
