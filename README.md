@@ -1,3 +1,5 @@
+<h4 align="center">This is the legacy version of pyrmc, pyrmc 2 which is out now, an undetectable rat maker with over 20 commands to use. made using <a href="http://python.org" target="_blank">Python</a> and <a href="http://discord.com" target="_blank">Discord</a></h4>
+
 <h1 align="center">
   <br>
 <img src="https://github.com/akbartaimurr/PYRMC/assets/134905706/8ec8d584-8e30-4ae4-be35-4bfe248ab266" alt="Markdownify" width="250"></a>
